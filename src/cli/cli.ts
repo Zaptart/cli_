@@ -24,21 +24,12 @@ export class CLI {
     static usage(key_arg: string = "", detail: string = "") {
         const commandKeys = Object.keys(CLI.commands);
         if (key_arg == "") {
-            console.log(`           CSS-Sort CLI
+            console.log(`           CLI
         
-            Usage: node css_sort ${commandKeys.join('|')}
+            Usage: node <project_name> ${commandKeys.join(' | ')}
         
             ${detail}`);
         } else if (commandKeys.includes(key_arg)) {
-            if (key_arg === "interactive") {
-                detail += "\n\t    Description : Allows user to select directories and files to sort at runtime.\n\t    Arguments : NONE";
-            } else if (key_arg == "sort") {
-                detail += "\n\t    Description : Default sorting method, ascending line length.\n\t    Arguments : FILE or DIR";
-            } else if (key_arg == "sort_desc") {
-                detail += "\n\t    Description : Alternate sorting method, descending line length.\n\t    Arguments : FILE or DIR";
-            } else if (key_arg == "help") {
-                detail += "\n\t    Description : Provides usage help on subcommands.\n\t    Arguments : SUBCOMMAND[sort/sort_desc/interactive]";
-            }
             console.log(`           CSS-Sort CLI
             
             '${key_arg}' usage: node css_sort ${key_arg} <arg>
@@ -48,46 +39,16 @@ export class CLI {
     }
     static commands: { [s: string]: Command } = {
         async help(util: Utils, key: string, ...args: string[]) {
-            if (args.length > 1) {
-                CLI.usage(key, "Too many arguments, " + args.length + " arguments given, 1 expected.");
-            } else if (args.length == 1) {
-                if (!Object.keys(CLI.commands).includes(args[0])) {
-                    CLI.usage("", "Invalid argument. Please use one of the listed sub-commands.");
-                } else {
-                    CLI.usage(args[0], "");
-                }
-            } else {
-                CLI.usage("", "");
-            }
+            CLI.usage("", "");
         },
-        async sort(util: Utils, key: string, ...args: string[]) {
-            if (args.length >= 1) {
-                if (util.checkIfFile("", args)) {
-                    //arg contains file(s)
-                } else if (util.checkIfDirectory("", args)) {
-                    //args contains director(y/ies)
-                }
-            } else {
-                //check active directory
-            }
+        async _subcommand1(util: Utils, key: string, ...args: string[]) {
+
         },
-        async sort_desc(util: Utils, key: string, ...args: string[]) {
-            if (args.length >= 1) {
-                if (util.checkIfFile("", args)) {
-                    //arg contains file(s)
-                } else if (util.checkIfDirectory("", args)) {
-                    //args contains director(y/ies)
-                }
-            } else {
-                //check active directory
-            }
+        async _subcommand2(util: Utils, key: string, ...args: string[]) {
+
         },
-        async interactive(util: Utils, key: string, ...args: string[]) {
-            if (args.length >= 1) {
-                CLI.usage(key, "Too many arguments, " + args.length + " arguments given, none expected.");
-            } else if (args.length == 0) {
-                // repl
-            }
+        async _subcommand3(util: Utils, key: string, ...args: string[]) {
+
         }
     };
 
